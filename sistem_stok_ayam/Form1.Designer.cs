@@ -30,8 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
             this.bunifuDragControl1 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
             this.bunifuImageButton2 = new Bunifu.Framework.UI.BunifuImageButton();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -260,7 +260,7 @@
             this.field_list_customer.DisabledColor = System.Drawing.Color.Gray;
             this.field_list_customer.ForeColor = System.Drawing.Color.White;
             this.field_list_customer.Items = new string[0];
-            this.field_list_customer.Location = new System.Drawing.Point(271, 318);
+            this.field_list_customer.Location = new System.Drawing.Point(271, 319);
             this.field_list_customer.Name = "field_list_customer";
             this.field_list_customer.NomalColor = System.Drawing.Color.Sienna;
             this.field_list_customer.onHoverColor = System.Drawing.Color.Maroon;
@@ -515,6 +515,7 @@
             this.field_harga_barang.Size = new System.Drawing.Size(401, 33);
             this.field_harga_barang.TabIndex = 7;
             this.field_harga_barang.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.field_harga_barang.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.field_harga_barang_KeyPress);
             // 
             // tombol_tambah_barang
             // 
@@ -540,13 +541,14 @@
             this.tombol_tambah_barang.Size = new System.Drawing.Size(181, 41);
             this.tombol_tambah_barang.TabIndex = 6;
             this.tombol_tambah_barang.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.tombol_tambah_barang.Click += new System.EventHandler(this.tombol_tambah_barang_Click);
             // 
             // label_barang
             // 
             this.label_barang.AutoSize = true;
             this.label_barang.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label_barang.ForeColor = System.Drawing.Color.White;
-            this.label_barang.Location = new System.Drawing.Point(272, 232);
+            this.label_barang.Location = new System.Drawing.Point(272, 223);
             this.label_barang.Name = "label_barang";
             this.label_barang.Size = new System.Drawing.Size(99, 17);
             this.label_barang.TabIndex = 4;
@@ -596,7 +598,7 @@
             this.field_nama_barang.DisabledColor = System.Drawing.Color.Gray;
             this.field_nama_barang.ForeColor = System.Drawing.Color.White;
             this.field_nama_barang.Items = new string[0];
-            this.field_nama_barang.Location = new System.Drawing.Point(272, 255);
+            this.field_nama_barang.Location = new System.Drawing.Point(272, 246);
             this.field_nama_barang.Name = "field_nama_barang";
             this.field_nama_barang.NomalColor = System.Drawing.Color.Sienna;
             this.field_nama_barang.onHoverColor = System.Drawing.Color.Maroon;
@@ -625,6 +627,7 @@
             this.field_kuantitas_barang.TabIndex = 5;
             this.field_kuantitas_barang.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.field_kuantitas_barang.Enter += new System.EventHandler(this.bunifuMaterialTextbox1_Enter);
+            this.field_kuantitas_barang.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.field_kuantitas_barang_KeyPress);
             // 
             // kontener_list_transaksi
             // 
@@ -639,19 +642,19 @@
             // 
             // grid_list_transaksi
             // 
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.grid_list_transaksi.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle19.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.grid_list_transaksi.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle19;
             this.grid_list_transaksi.BackgroundColor = System.Drawing.Color.Gainsboro;
             this.grid_list_transaksi.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.grid_list_transaksi.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.SeaGreen;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.SeaGreen;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.grid_list_transaksi.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle20.BackColor = System.Drawing.Color.SeaGreen;
+            dataGridViewCellStyle20.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle20.ForeColor = System.Drawing.Color.SeaGreen;
+            dataGridViewCellStyle20.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.grid_list_transaksi.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle20;
             this.grid_list_transaksi.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grid_list_transaksi.DoubleBuffered = true;
             this.grid_list_transaksi.EnableHeadersVisualStyles = false;

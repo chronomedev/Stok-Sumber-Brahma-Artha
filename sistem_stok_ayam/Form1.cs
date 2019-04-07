@@ -131,12 +131,21 @@ namespace sistem_stok_ayam
         }
 
 
-        public void fillCustomerList()
+        public void fillProductList()
         {
             String[] list_produk = libraryFungsi.ambilProduk();
             for(int z = 0; z < list_produk.Length; z++)
             {
                 field_nama_barang.AddItem(list_produk[z]);
+            }
+        }
+
+        public void fillCustomerList()
+        {
+            String[] list_customer = libraryFungsi.ambilCustomer();
+            for (int z = 0; z < list_customer.Length; z++)
+            {
+                field_list_customer.AddItem(list_customer[z]);
             }
         }
 
@@ -201,9 +210,11 @@ namespace sistem_stok_ayam
         private void Form1_Load(object sender, EventArgs e)
         {
             fillListSort();
-            bunifuDropdown1.selectedIndex = 0;
-
+            fillProductList();
             fillCustomerList();
+            bunifuDropdown1.selectedIndex = 0;
+            bunifuDatepicker1.Value = DateTime.Today;
+
         }
 
         private void aaa1_Load(object sender, EventArgs e)
@@ -299,9 +310,60 @@ namespace sistem_stok_ayam
             } 
         }
 
+        //Update stok barang ada keluar
         private void tombol_kurang_barang_Click(object sender, EventArgs e)
         {
 
+        }
+
+        //Update stok barang ada masuk
+        private void tombol_tambah_barang_Click(object sender, EventArgs e)
+        {
+            //Ambil inputan dari field
+            String waktu = bunifuDatepicker1.Value.ToString("yyy-MM-dd");
+            String[] pecah = field_nama_barang.selectedValue.ToString().Split(new String[] { "  " }, StringSplitOptions.None);
+            Console.WriteLine("VARIABEL WAKTU::::::::" + waktu);
+            String kode_produk = pecah[0];
+
+            int kuantitas_kg = Convert.ToInt32(field_kuantitas_barang.Text);
+            long harga = Convert.ToInt64(field_harga_barang.Text);
+
+            //Jalankan query database///////////
+            libraryFungsi.tambahStokBarang(kode_produk, kuantitas_kg);
+            libraryFungsi.tambahStokBarang_harga(kode_produk, kuantitas_kg);
+
+            if(libraryFungsi.insertTransaksi(kode_produk, waktu, kuantitas_kg, "masuk"))
+            {
+                MessageBox.Show("Berhasil mencatat barang!");
+            } else
+            {
+                MessageBox.Show("Tidak berhasil mencatat Barang");
+            }
+
+
+            Console.WriteLine(pecah[1]);
+            Console.WriteLine("VALUE DATENYA::::" + waktu);
+        }
+
+        private void field_harga_barang_KeyPress(object sender, KeyPressEventArgs e)
+        {
+        
+           if (!Char.IsNumber(e.KeyChar) && !Char.IsControl(e.KeyChar))
+           {
+                MessageBox.Show("Masukan untuk harga barang harus berupa angka!");
+                field_harga_barang.Text = String.Empty;
+                
+            } 
+        }
+
+        private void field_kuantitas_barang_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsNumber(e.KeyChar) && !Char.IsControl(e.KeyChar))
+            {
+                MessageBox.Show("Masukan untuk kuantitas barang harus berupa angka!");
+                field_kuantitas_barang.Text = String.Empty;
+
+            }
         }
     }
 }
