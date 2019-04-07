@@ -326,11 +326,11 @@ namespace sistem_stok_ayam
             String kode_produk = pecah[0];
 
             int kuantitas_kg = Convert.ToInt32(field_kuantitas_barang.Text);
-            long harga = Convert.ToInt64(field_harga_barang.Text);
+            long harga_masukan = Convert.ToInt64(field_harga_barang.Text);
 
             //Jalankan query database///////////
             libraryFungsi.tambahStokBarang(kode_produk, kuantitas_kg);
-            libraryFungsi.tambahStokBarang_harga(kode_produk, kuantitas_kg);
+            libraryFungsi.tambahStokBarang_harga(kode_produk, harga_masukan);
 
             if(libraryFungsi.insertTransaksi(kode_produk, waktu, kuantitas_kg, "masuk"))
             {

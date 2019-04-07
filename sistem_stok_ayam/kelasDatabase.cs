@@ -82,7 +82,7 @@ namespace sistem_stok_ayam
         {
             long jumlah_harga_sekarang = ambilJumlahStok_harga(id_barang);
             long jumlah_harga_update = jumlah_harga_sekarang + kuantitas;
-            String querySQL = "update Ms_barang set harga_barang =" + jumlah_harga_update + "where kode_barang ='" + id_barang + "';";
+            String querySQL = "update Ms_barang set harga_barang =" + jumlah_harga_update + " where kode_barang ='" + id_barang + "';";
             SqlCommand komenSQL = new SqlCommand(querySQL, koneksi);
             koneksi.Open();
             komenSQL.ExecuteNonQuery();
@@ -110,11 +110,15 @@ namespace sistem_stok_ayam
             SqlDataReader baca = komenSQL.ExecuteReader();
             while (baca.Read())
             {
-                if (baca["harga_barang"].ToString() != null)
+                if (baca["harga_barang"].ToString() == null)
+                {
+                    break;   
+                } else
                 {
                     jumlah_harga = Convert.ToInt64(baca["harga_barang"].ToString());
                 }
             }
+            koneksi.Close();
 
 
             return jumlah_harga;
@@ -136,6 +140,8 @@ namespace sistem_stok_ayam
                 }
                 
             }
+
+            koneksi.Close();
 
             return total_stok;
         }
