@@ -22,6 +22,7 @@ namespace sistem_stok_ayam
 
 
         kelasDatabase libraryFungsi;
+        dataCleansing dataLibrary;
 
         //Declare sorting variables
         int pilihan_bulan;
@@ -195,6 +196,7 @@ namespace sistem_stok_ayam
             InitializeComponent();
             SqlConnection koneksi = new SqlConnection("Data Source=den1.mssql8.gear.host;Initial Catalog=sumberbrahma;Persist Security Info=True;User ID=sumberbrahma;Password=Fu2brX8rn!-1");
             libraryFungsi = new kelasDatabase(koneksi);
+            dataLibrary = new dataCleansing();
             this.FormBorderStyle = FormBorderStyle.None;
             InterfaceManager(1);
 
@@ -313,6 +315,18 @@ namespace sistem_stok_ayam
         //Update stok barang ada keluar
         private void tombol_kurang_barang_Click(object sender, EventArgs e)
         {
+            String id_produk_pilihan = dataLibrary.getID_clean(field_nama_barang.selectedValue.ToString());
+            Console.WriteLine("PILIHAN BUAT BARANG KELUAR:::::" + id_produk_pilihan);
+            String id_customer_pilihan = dataLibrary.getID_clean(field_list_customer.selectedValue.ToString());
+
+            int kuantitas_kg = Convert.ToInt32(field_kuantitas_barang.Text);
+            long total_stok = libraryFungsi.ambilJumlahStok(id_produk_pilihan);
+            long stok_keluar = Convert.ToInt64(field_kuantitas_barang.Text);
+            long total_harga_barang = libraryFungsi.ambilJumlahStok_harga(id_produk_pilihan);
+            double cogs = dataLibrary.calculateCOGS(total_stok, stok_keluar, total_harga_barang);
+
+
+
 
         }
 
@@ -321,9 +335,8 @@ namespace sistem_stok_ayam
         {
             //Ambil inputan dari field
             String waktu = bunifuDatepicker1.Value.ToString("yyy-MM-dd");
-            String[] pecah = field_nama_barang.selectedValue.ToString().Split(new String[] { "  " }, StringSplitOptions.None);
             Console.WriteLine("VARIABEL WAKTU::::::::" + waktu);
-            String kode_produk = pecah[0];
+            String kode_produk = dataLibrary.getID_clean(field_nama_barang.selectedValue.ToString());
 
             int kuantitas_kg = Convert.ToInt32(field_kuantitas_barang.Text);
             long harga_masukan = Convert.ToInt64(field_harga_barang.Text);
@@ -341,7 +354,6 @@ namespace sistem_stok_ayam
             }
 
 
-            Console.WriteLine(pecah[1]);
             Console.WriteLine("VALUE DATENYA::::" + waktu);
         }
 
