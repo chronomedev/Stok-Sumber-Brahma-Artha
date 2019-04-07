@@ -1,0 +1,14 @@
+C:\Users\hansr\source\repos\sistem_stok_ayam\sistem_stok_ayam\bin\Debug\sistem_stok_ayam.exe.config
+C:\Users\hansr\source\repos\sistem_stok_ayam\sistem_stok_ayam\bin\Debug\sistem_stok_ayam.exe
+C:\Users\hansr\source\repos\sistem_stok_ayam\sistem_stok_ayam\bin\Debug\sistem_stok_ayam.pdb
+C:\Users\hansr\source\repos\sistem_stok_ayam\sistem_stok_ayam\obj\Debug\sistem_stok_ayam.csprojAssemblyReference.cache
+C:\Users\hansr\source\repos\sistem_stok_ayam\sistem_stok_ayam\obj\Debug\sistem_stok_ayam.Form1.resources
+C:\Users\hansr\source\repos\sistem_stok_ayam\sistem_stok_ayam\obj\Debug\sistem_stok_ayam.Properties.Resources.resources
+C:\Users\hansr\source\repos\sistem_stok_ayam\sistem_stok_ayam\obj\Debug\sistem_stok_ayam.csproj.GenerateResource.cache
+C:\Users\hansr\source\repos\sistem_stok_ayam\sistem_stok_ayam\obj\Debug\sistem_stok_ayam.csproj.CoreCompileInputs.cache
+C:\Users\hansr\source\repos\sistem_stok_ayam\sistem_stok_ayam\obj\Debug\sistem_stok_ayam.exe
+C:\Users\hansr\source\repos\sistem_stok_ayam\sistem_stok_ayam\obj\Debug\sistem_stok_ayam.pdb
+C:\Users\hansr\source\repos\sistem_stok_ayam\sistem_stok_ayam\bin\Debug\Bunifu_UI_v1.5.3.dll
+C:\Users\hansr\source\repos\sistem_stok_ayam\sistem_stok_ayam\obj\Debug\sistem_stok_ayam.csproj.CopyComplete
+C:\Users\hansr\source\repos\sistem_stok_ayam\sistem_stok_ayam\obj\Debug\sistem_stok_ayam.FormSortingHari.resources
+C:\Users\hansr\source\repos\sistem_stok_ayam\sistem_stok_ayam\obj\Debug\sistem_stok_ayam.SortingListBulan.resources

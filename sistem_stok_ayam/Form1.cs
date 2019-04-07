@@ -1,0 +1,307 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data.SqlClient;
+using System.Drawing;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+/// <summary>
+/// Stock Management Application System for CV Sumber Brahma Artha
+/// Main Window Application
+/// Created by HSD 2019 
+/// </summary>
+
+namespace sistem_stok_ayam
+{
+    public partial class Form1 : Form
+    {
+
+        /////////UI management Functions//////////////////
+
+
+        kelasDatabase libraryFungsi;
+
+        //Declare sorting variables
+        int pilihan_bulan;
+        String pilihan_tanggal_sort;
+
+        public void uiListAll_en()
+        {
+            kontener_list_transaksi.Enabled = true;
+            kontener_list_transaksi.Visible = true;
+            kontener_sort1.Enabled = true;
+            kontener_sort1.Visible = true;
+            kontener_sort2.Enabled = true;
+            kontener_sort2.Visible = true;
+            label3.Visible = true;
+            label4.Visible = true;
+            kontener_summary.Enabled = true;
+            kontener_summary.Visible = true;
+        }
+
+        public void uiListAll_dis()
+        {
+            kontener_list_transaksi.Enabled = false;
+            kontener_list_transaksi.Visible = false;
+            kontener_sort1.Enabled = false;
+            kontener_sort1.Visible = false;
+            kontener_sort2.Enabled = false;
+            kontener_sort2.Visible = false;
+            label3.Visible = false;
+            label4.Visible = false;
+            kontener_summary.Enabled = false;
+            kontener_summary.Visible = false;
+        }
+
+        public void uiStok_dis()
+        {
+            //judul.Visible = false;
+            label2.Visible = false;
+            bunifuDatepicker1.Visible = false;
+            bunifuDatepicker1.Enabled = false;
+            label_barang.Visible = false;
+            label_barang.Text = null;
+            field_nama_barang.Enabled = false;
+            field_nama_barang.Visible = false;
+            field_kuantitas_barang.Enabled = false;
+            field_kuantitas_barang.Visible = false;
+            field_harga_barang.Enabled = false;
+            field_harga_barang.Visible = false;
+            field_nama_barang.Enabled = false;
+            field_nama_barang.Visible = false;
+            tombol_tambah_barang.Visible = false;
+            tombol_tambah_barang.Enabled = false;
+            tombol_kurang_barang.Enabled = false;
+            tombol_kurang_barang.Visible = false;
+            label5.Visible = false;
+            field_list_customer.Enabled = false;
+            field_list_customer.Visible = false;
+        }
+        public void uiStokMasuk_en() 
+        {
+            //judul.Visible = true;
+            judul.Text = "PENAMBAHAN STOK";
+            label2.Visible = true;
+            bunifuDatepicker1.Visible = true;
+            bunifuDatepicker1.Enabled = true;
+            label_barang.Visible = true;
+            label_barang.Text = "Barang Masuk";
+            field_nama_barang.Enabled = true;
+            field_nama_barang.Visible = true;
+            field_kuantitas_barang.Location = new Point(275, 319);
+            field_kuantitas_barang.Enabled = true;
+            field_kuantitas_barang.Visible = true;
+            field_harga_barang.Enabled = true;
+            field_harga_barang.Visible = true;
+            tombol_tambah_barang.Visible = true;
+            tombol_tambah_barang.Enabled = true;
+            tombol_kurang_barang.Enabled = false;
+            tombol_kurang_barang.Visible = false;
+            label5.Visible = false;
+            field_list_customer.Enabled = false;
+            field_list_customer.Visible = false;
+        }
+
+        public void uiStokKeluar_en()
+        {
+            //judul.Visible = true;
+            judul.Text = "PENGURANGAN STOK";
+            label2.Visible = true;
+            bunifuDatepicker1.Visible = true;
+            bunifuDatepicker1.Enabled = true;
+            label_barang.Visible = true;
+            label_barang.Text = "Barang Keluar";
+            field_nama_barang.Enabled = true;
+            field_nama_barang.Visible = true;
+            field_kuantitas_barang.Location = new Point(270, 370);
+            field_kuantitas_barang.Enabled = true;
+            field_kuantitas_barang.Visible = true;
+            
+            field_harga_barang.Enabled = false;
+            field_harga_barang.Visible = false;
+            tombol_kurang_barang.Enabled = true;
+            tombol_kurang_barang.Visible = true;
+            tombol_tambah_barang.Enabled = false;
+            tombol_tambah_barang.Visible = false;
+            label5.Visible = true;
+            field_list_customer.Enabled = true;
+            field_list_customer.Visible = true;
+        }
+
+
+        public void fillCustomerList()
+        {
+            String[] list_produk = libraryFungsi.ambilProduk();
+            for(int z = 0; z < list_produk.Length; z++)
+            {
+                field_nama_barang.AddItem(list_produk[z]);
+            }
+        }
+
+        public void fillListSort()
+        {
+            bunifuDropdown1.AddItem("Semua");
+            bunifuDropdown1.AddItem("Masuk");
+            bunifuDropdown1.AddItem("Keluar");
+        }
+
+        public void InterfaceManager(int request)
+        {
+            if (request == 1)
+            {
+                uiListAll_en();
+                uiStok_dis();
+                menu1.Normalcolor= Color.OrangeRed;
+                menu2.Normalcolor = Color.FromArgb(64, 0, 0);
+                menu3.Normalcolor = Color.FromArgb(64, 0, 0);
+
+            }
+            else if (request == 2)
+            {
+                uiStokMasuk_en();
+                uiListAll_dis();
+                menu1.Normalcolor = Color.FromArgb(64, 0, 0);
+                menu2.Normalcolor = Color.OrangeRed;
+                menu3.Normalcolor = Color.FromArgb(64, 0, 0);
+            }
+            else
+            {
+                uiListAll_dis();
+                uiStokKeluar_en();
+                menu1.Normalcolor = Color.FromArgb(64, 0, 0);
+                menu2.Normalcolor = Color.FromArgb(64, 0, 0);
+                menu3.Normalcolor = Color.OrangeRed;
+            }
+        }
+
+
+
+        ///////////////////////////////////////////////////////////////
+
+        
+        public Form1()
+        {
+            InitializeComponent();
+            SqlConnection koneksi = new SqlConnection("Data Source=den1.mssql8.gear.host;Initial Catalog=sumberbrahma;Persist Security Info=True;User ID=sumberbrahma;Password=Fu2brX8rn!-1");
+            libraryFungsi = new kelasDatabase(koneksi);
+            this.FormBorderStyle = FormBorderStyle.None;
+            InterfaceManager(1);
+
+            label1.Text = "Nama Barang           Kuantitas(Kg)           Nilai(Rp)";
+            //listBox1.Items.Add("BLD\t\t100\t\t7100000");
+            //listBox1.Items.Add("Ampela\t\t100\t\t50000");
+            //listBox1.Items.Add("BLP\t\t140\t\t9100000");
+            //listBox1.Items.Add("hati\t\t37\t\t24430");
+
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            fillListSort();
+            bunifuDropdown1.selectedIndex = 0;
+
+            fillCustomerList();
+        }
+
+        private void aaa1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bunifuImageButton2_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void panel3_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void bunifuMaterialTextbox1_Enter(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void bunifuFlatButton2_Click(object sender, EventArgs e)
+        {
+            InterfaceManager(2);
+        }
+
+        private void bunifuFlatButton1_Click(object sender, EventArgs e)
+        {
+            InterfaceManager(1);
+            //uiStok_dis();
+            //uiListAll_en();
+        }
+
+        private void bunifuFlatButton3_Click(object sender, EventArgs e)
+        {
+
+            InterfaceManager(3);
+            ////uiStokMasuk_dis();
+            //uiStokKeluar_en();
+        }
+
+        private void listBox1_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            
+        }
+
+        private void bunifuDatepicker1_Enter(object sender, EventArgs e)
+        {
+            //bunifuDatepicker1.BackColor = Color.Maroon;
+        }
+
+        private void field_nama_barang_MouseHover(object sender, EventArgs e)
+        {
+            bunifuDatepicker1.BackColor = Color.Maroon;
+        }
+
+        private void field_nama_barang_MouseEnter(object sender, EventArgs e)
+        {
+            bunifuDatepicker1.BackColor = Color.Maroon;
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bunifuDatepicker2_onValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bunifuFlatButton2_Click_1(object sender, EventArgs e)
+        {
+            SortingListBulan dialok_bulan = new SortingListBulan();
+            if(dialok_bulan.ShowDialog() == DialogResult.OK)
+            {
+
+            }
+        }
+
+        private void bunifuFlatButton1_Click_1(object sender, EventArgs e)
+        {
+            FormSortingHari dialokHari = new FormSortingHari();
+            if(dialokHari.ShowDialog() == DialogResult.OK)
+            {
+                //label4.Text = dialokHari.passing;
+            } 
+        }
+
+        private void tombol_kurang_barang_Click(object sender, EventArgs e)
+        {
+
+        }
+    }
+}
