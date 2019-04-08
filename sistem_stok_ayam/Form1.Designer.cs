@@ -30,8 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
             this.bunifuDragControl1 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
             this.bunifuImageButton2 = new Bunifu.Framework.UI.BunifuImageButton();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -65,8 +63,8 @@
             this.field_nama_barang = new Bunifu.Framework.UI.BunifuDropdown();
             this.field_kuantitas_barang = new Bunifu.Framework.UI.BunifuMaterialTextbox();
             this.kontener_list_transaksi = new System.Windows.Forms.GroupBox();
-            this.grid_list_transaksi = new Bunifu.Framework.UI.BunifuCustomDataGrid();
             this.label6 = new System.Windows.Forms.Label();
+            this.grid_list_transaksi = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton2)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -640,32 +638,6 @@
             this.kontener_list_transaksi.TabStop = false;
             this.kontener_list_transaksi.Text = "LIST TRANSAKSI";
             // 
-            // grid_list_transaksi
-            // 
-            dataGridViewCellStyle19.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.grid_list_transaksi.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle19;
-            this.grid_list_transaksi.BackgroundColor = System.Drawing.Color.Gainsboro;
-            this.grid_list_transaksi.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.grid_list_transaksi.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle20.BackColor = System.Drawing.Color.SeaGreen;
-            dataGridViewCellStyle20.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle20.ForeColor = System.Drawing.Color.SeaGreen;
-            dataGridViewCellStyle20.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.grid_list_transaksi.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle20;
-            this.grid_list_transaksi.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grid_list_transaksi.DoubleBuffered = true;
-            this.grid_list_transaksi.EnableHeadersVisualStyles = false;
-            this.grid_list_transaksi.HeaderBgColor = System.Drawing.Color.SeaGreen;
-            this.grid_list_transaksi.HeaderForeColor = System.Drawing.Color.SeaGreen;
-            this.grid_list_transaksi.Location = new System.Drawing.Point(7, 18);
-            this.grid_list_transaksi.Name = "grid_list_transaksi";
-            this.grid_list_transaksi.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            this.grid_list_transaksi.Size = new System.Drawing.Size(564, 369);
-            this.grid_list_transaksi.TabIndex = 9;
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -677,6 +649,15 @@
             this.label6.Size = new System.Drawing.Size(192, 13);
             this.label6.TabIndex = 7;
             this.label6.Text = "Sistem Stok - CV Sumber Brahma Artha";
+            // 
+            // grid_list_transaksi
+            // 
+            this.grid_list_transaksi.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grid_list_transaksi.Location = new System.Drawing.Point(10, 19);
+            this.grid_list_transaksi.Name = "grid_list_transaksi";
+            this.grid_list_transaksi.ReadOnly = true;
+            this.grid_list_transaksi.Size = new System.Drawing.Size(564, 369);
+            this.grid_list_transaksi.TabIndex = 0;
             // 
             // Form1
             // 
@@ -728,7 +709,6 @@
         private Bunifu.Framework.UI.BunifuThinButton2 tombol_tambah_barang;
         private Bunifu.Framework.UI.BunifuMaterialTextbox field_harga_barang;
         private Bunifu.Framework.UI.BunifuThinButton2 tombol_kurang_barang;
-        private Bunifu.Framework.UI.BunifuCustomDataGrid grid_list_transaksi;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TabControl tabControl1;
@@ -747,6 +727,7 @@
         private Bunifu.Framework.UI.BunifuDropdown field_list_customer;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.DataGridView grid_list_transaksi;
     }
 }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
@@ -13,6 +14,18 @@ namespace sistem_stok_ayam
             koneksi = koneksi_pass;
         }
 
+        public DataTable ambilData_list_Transaksi()
+        {
+            DataTable tabelData = new DataTable();
+            String querySQL = "select * from Ms_Barang;";
+            SqlCommand komenSQL = new SqlCommand(querySQL, koneksi);
+            koneksi.Open();
+            SqlDataReader pembaca = komenSQL.ExecuteReader();
+            tabelData.Load(pembaca);
+            koneksi.Close();
+            return tabelData;
+            
+        }
         public String[] ambilProduk()
         {
             String[] list_produk = new string[1];
@@ -56,10 +69,10 @@ namespace sistem_stok_ayam
         }
 
 
-        public void tambahStokBarang(String id_barang, int kuantitas)
+        public void tambahStokBarang(String id_barang, double kuantitas)
         {
-            long stok_sekarang = ambilJumlahStok(id_barang);
-            long stok_update = stok_sekarang + kuantitas;
+            double stok_sekarang = ambilJumlahStok(id_barang);
+            double stok_update = stok_sekarang + kuantitas;
             String querySQL = "update Ms_barang set qty_barang =" + stok_update + "where kode_barang ='" + id_barang + "';";
             SqlCommand komenSQL = new SqlCommand(querySQL, koneksi);
             koneksi.Open();
@@ -67,10 +80,10 @@ namespace sistem_stok_ayam
             koneksi.Close();
         }
 
-        public void kurangStokBarang(String id_barang, int kuantitas)
+        public void kurangStokBarang(String id_barang, double kuantitas)
         {
-            long stok_sekarang = ambilJumlahStok(id_barang);
-            long stok_update = stok_sekarang - kuantitas;
+            double stok_sekarang = ambilJumlahStok(id_barang);
+            double stok_update = stok_sekarang - kuantitas;
             String querySQL = "update Ms_barang set qty_barang =" + stok_update + "where kode_barang ='" + id_barang + "';";
             SqlCommand komenSQL = new SqlCommand(querySQL, koneksi);
             koneksi.Open();
@@ -78,10 +91,10 @@ namespace sistem_stok_ayam
             koneksi.Close();
         }
 
-        public void tambahStokBarang_harga(String id_barang, long kuantitas)
+        public void tambahStokBarang_harga(String id_barang, double kuantitas)
         {
-            long jumlah_harga_sekarang = ambilJumlahStok_harga(id_barang);
-            long jumlah_harga_update = jumlah_harga_sekarang + kuantitas;
+            double jumlah_harga_sekarang = ambilJumlahStok_harga(id_barang);
+            double jumlah_harga_update = jumlah_harga_sekarang + kuantitas;
             String querySQL = "update Ms_barang set harga_barang =" + jumlah_harga_update + " where kode_barang ='" + id_barang + "';";
             SqlCommand komenSQL = new SqlCommand(querySQL, koneksi);
             koneksi.Open();
@@ -90,10 +103,10 @@ namespace sistem_stok_ayam
   
         }
 
-        public void kurangStokBarang_harga(String id_barang, long kuantitas)
+        public void kurangStokBarang_harga(String id_barang, double kuantitas)
         {
-            long jumlah_harga_sekarang = ambilJumlahStok_harga(id_barang);
-            long jumlah_harga_update = jumlah_harga_sekarang - kuantitas;
+            double jumlah_harga_sekarang = ambilJumlahStok_harga(id_barang);
+            double jumlah_harga_update = jumlah_harga_sekarang - kuantitas;
             String querySQL = "update Ms_barang set harga_barang =" + jumlah_harga_update + "where kode_barang ='" + id_barang + "';";
             SqlCommand komenSQL = new SqlCommand(querySQL, koneksi);
             koneksi.Open();
@@ -101,9 +114,9 @@ namespace sistem_stok_ayam
             koneksi.Close();
         }
 
-        public long ambilJumlahStok_harga(String id_barang)
+        public double ambilJumlahStok_harga(String id_barang)
         {
-            long jumlah_harga = 0;
+            double jumlah_harga = 0;
             String querySQL = "select harga_barang from Ms_Barang where kode_barang = '"+ id_barang+"';";
             SqlCommand komenSQL = new SqlCommand(querySQL, koneksi);
             koneksi.Open();
@@ -115,7 +128,7 @@ namespace sistem_stok_ayam
                     break;   
                 } else
                 {
-                    jumlah_harga = Convert.ToInt64(baca["harga_barang"].ToString());
+                    jumlah_harga = Convert.ToDouble(baca["harga_barang"].ToString());
                 }
             }
             koneksi.Close();
@@ -125,9 +138,9 @@ namespace sistem_stok_ayam
         }
 
 
-        public long ambilJumlahStok(String id_barang)
+        public double ambilJumlahStok(String id_barang)
         {
-            long total_stok = 0;
+            double total_stok = 0;
             String querySQL = "select qty_barang from Ms_Barang where kode_barang = '" + id_barang + "';";
             SqlCommand komenSQL = new SqlCommand(querySQL, koneksi);
             koneksi.Open();
@@ -136,7 +149,7 @@ namespace sistem_stok_ayam
             {
                 if(baca["qty_barang"] != null)
                 {
-                    total_stok = Convert.ToInt64(baca["qty_barang"].ToString());
+                    total_stok = Convert.ToDouble(baca["qty_barang"].ToString());
                 }
                 
             }
@@ -148,11 +161,20 @@ namespace sistem_stok_ayam
 
 
 
-        public Boolean insertTransaksi(String kode_barang, String waktu, int qty_barang, String pergerakan_barang)
+        public Boolean insertTransaksi(String kode_barang, String waktu, double qty_barang, String pergerakan_barang, double cogs, String id_customer_pilihan)
         {
             try
             {
-                String querySQL = "insert into Ms_Pergerakan_Barang(kode_barang, tanggal, qty_barang, pergerakan_barang)values('" + kode_barang + "', '" + waktu + "', " + qty_barang + ", '" + pergerakan_barang + "');";
+                String querySQL;
+                //Console.WriteLine("INSERT BARANG DI BULETIN KEATAS::::::" + qty_barang);
+                if(pergerakan_barang == "masuk")
+                {
+                    querySQL = "insert into Ms_Pergerakan_Barang(kode_barang, tanggal, qty_barang, pergerakan_barang)values('" + kode_barang + "', '" + waktu + "', " + qty_barang + ", '" + pergerakan_barang + "');";
+                } else
+                {
+                    querySQL = "insert into Ms_Pergerakan_Barang(kode_barang, tanggal, qty_barang, pergerakan_barang, cogs, kode_customer)values('" + kode_barang + "', '" + waktu + "', " + qty_barang + ", '" + pergerakan_barang + "', " + cogs+", '" + id_customer_pilihan+"');";
+                }
+                
                 SqlCommand komenSQL = new SqlCommand(querySQL, koneksi);
                 koneksi.Open();
                 komenSQL.ExecuteNonQuery();

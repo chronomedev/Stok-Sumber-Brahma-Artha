@@ -15,7 +15,7 @@ namespace sistem_stok_ayam
             return pecah[0];
         }
 
-        public double calculateCOGS(long total_stok, long stok_keluar,  long total_harga)
+        public double calculateCOGS(double total_stok, double stok_keluar,  double total_harga)
         {
             double harga_avg = total_harga / total_stok;            
             return stok_keluar * harga_avg;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Text;
@@ -187,6 +188,12 @@ namespace sistem_stok_ayam
         }
 
 
+        public void fillListTransaksi()
+        {
+            DataTable tabeldata = libraryFungsi.ambilData_list_Transaksi();
+            grid_list_transaksi.DataSource = tabeldata;
+            grid_list_transaksi.DefaultCellStyle.ForeColor = Color.Black;
+        }
 
         ///////////////////////////////////////////////////////////////
 
@@ -201,6 +208,7 @@ namespace sistem_stok_ayam
             InterfaceManager(1);
 
             label1.Text = "Nama Barang           Kuantitas(Kg)           Nilai(Rp)";
+            fillListTransaksi();
             //listBox1.Items.Add("BLD\t\t100\t\t7100000");
             //listBox1.Items.Add("Ampela\t\t100\t\t50000");
             //listBox1.Items.Add("BLP\t\t140\t\t9100000");
@@ -315,16 +323,23 @@ namespace sistem_stok_ayam
         //Update stok barang ada keluar
         private void tombol_kurang_barang_Click(object sender, EventArgs e)
         {
+            String waktu = bunifuDatepicker1.Value.ToString("yyy-MM-dd");
             String id_produk_pilihan = dataLibrary.getID_clean(field_nama_barang.selectedValue.ToString());
             Console.WriteLine("PILIHAN BUAT BARANG KELUAR:::::" + id_produk_pilihan);
             String id_customer_pilihan = dataLibrary.getID_clean(field_list_customer.selectedValue.ToString());
 
             int kuantitas_kg = Convert.ToInt32(field_kuantitas_barang.Text);
-            long total_stok = libraryFungsi.ambilJumlahStok(id_produk_pilihan);
-            long stok_keluar = Convert.ToInt64(field_kuantitas_barang.Text);
-            long total_harga_barang = libraryFungsi.ambilJumlahStok_harga(id_produk_pilihan);
+            double total_stok = libraryFungsi.ambilJumlahStok(id_produk_pilihan);
+            double stok_keluar = Convert.ToInt64(field_kuantitas_barang.Text);
+            double total_harga_barang = libraryFungsi.ambilJumlahStok_harga(id_produk_pilihan);
             double cogs = dataLibrary.calculateCOGS(total_stok, stok_keluar, total_harga_barang);
 
+            Console.WriteLine("NILAI COGS:::::" + cogs);
+
+            libraryFungsi.kurangStokBarang(id_produk_pilihan, kuantitas_kg);
+            libraryFungsi.kurangStokBarang_harga(id_produk_pilihan, cogs);
+            libraryFungsi.insertTransaksi(id_produk_pilihan, waktu, stok_keluar, "keluar", cogs, id_customer_pilihan);
+            MessageBox.Show("Berhasil melakukan update barang keluar");
 
 
 
@@ -338,14 +353,14 @@ namespace sistem_stok_ayam
             Console.WriteLine("VARIABEL WAKTU::::::::" + waktu);
             String kode_produk = dataLibrary.getID_clean(field_nama_barang.selectedValue.ToString());
 
-            int kuantitas_kg = Convert.ToInt32(field_kuantitas_barang.Text);
-            long harga_masukan = Convert.ToInt64(field_harga_barang.Text);
+            double kuantitas_kg = Convert.ToDouble(field_kuantitas_barang.Text);
+            double harga_masukan = Convert.ToDouble(field_harga_barang.Text);
 
             //Jalankan query database///////////
             libraryFungsi.tambahStokBarang(kode_produk, kuantitas_kg);
             libraryFungsi.tambahStokBarang_harga(kode_produk, harga_masukan);
 
-            if(libraryFungsi.insertTransaksi(kode_produk, waktu, kuantitas_kg, "masuk"))
+            if(libraryFungsi.insertTransaksi(kode_produk, waktu, kuantitas_kg, "masuk", 0, null))
             {
                 MessageBox.Show("Berhasil mencatat barang!");
             } else
@@ -359,10 +374,12 @@ namespace sistem_stok_ayam
 
         private void field_harga_barang_KeyPress(object sender, KeyPressEventArgs e)
         {
-        
-           if (!Char.IsNumber(e.KeyChar) && !Char.IsControl(e.KeyChar))
+            
+          
+           if (!Char.IsNumber(e.KeyChar) && !Char.IsControl(e.KeyChar) && !e.KeyChar.Equals('.'))
            {
                 MessageBox.Show("Masukan untuk harga barang harus berupa angka!");
+                //Console.WriteLine("VALUE TITIK::::" + e.KeyChar);
                 field_harga_barang.Text = String.Empty;
                 
             } 
