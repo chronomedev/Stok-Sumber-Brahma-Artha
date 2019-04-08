@@ -234,7 +234,11 @@ namespace sistem_stok_ayam
             fillCustomerList();
             bunifuDropdown1.selectedIndex = 0;
             bunifuDatepicker1.Value = DateTime.Today;
-
+            //soon will be in a function
+            field_list_customer.selectedIndex = 0;
+            field_nama_barang.selectedIndex = 0;
+            label_harga_cogs.Visible = false;
+            ////////////////////////////////////////////
         }
 
         private void aaa1_Load(object sender, EventArgs e)
@@ -334,24 +338,33 @@ namespace sistem_stok_ayam
         //Update stok barang ada keluar
         private void tombol_kurang_barang_Click(object sender, EventArgs e)
         {
-            String waktu = bunifuDatepicker1.Value.ToString("yyy-MM-dd");
-            String id_produk_pilihan = dataLibrary.getID_clean(field_nama_barang.selectedValue.ToString());
-            Console.WriteLine("PILIHAN BUAT BARANG KELUAR:::::" + id_produk_pilihan);
-            String id_customer_pilihan = dataLibrary.getID_clean(field_list_customer.selectedValue.ToString());
 
-            double kuantitas_kg = Convert.ToDouble(field_kuantitas_barang.Text);
-            double total_stok = libraryFungsi.ambilJumlahStok(id_produk_pilihan);
-            double stok_keluar = Convert.ToDouble(field_kuantitas_barang.Text);
-            double total_harga_barang = libraryFungsi.ambilJumlahStok_harga(id_produk_pilihan);
-            double cogs = dataLibrary.calculateCOGS(total_stok, stok_keluar, total_harga_barang);
+            if(field_nama_barang.selectedValue.ToString() == null || field_list_customer.selectedValue.ToString() == null || field_kuantitas_barang.Text == null)
+            {
+                MessageBox.Show("Isi field atau tempat isian yang di sediakan!");
+            }
+            else
+            {
+                String waktu = bunifuDatepicker1.Value.ToString("yyy-MM-dd");
+                String id_produk_pilihan = dataLibrary.getID_clean(field_nama_barang.selectedValue.ToString());
+                Console.WriteLine("PILIHAN BUAT BARANG KELUAR:::::" + id_produk_pilihan);
+                String id_customer_pilihan = dataLibrary.getID_clean(field_list_customer.selectedValue.ToString());
 
-            Console.WriteLine("NILAI COGS:::::" + cogs);
+                double kuantitas_kg = Convert.ToDouble(field_kuantitas_barang.Text);
+                double total_stok = libraryFungsi.ambilJumlahStok(id_produk_pilihan);
+                double stok_keluar = Convert.ToDouble(field_kuantitas_barang.Text);
+                double total_harga_barang = libraryFungsi.ambilJumlahStok_harga(id_produk_pilihan);
+                double cogs = dataLibrary.calculateCOGS(total_stok, stok_keluar, total_harga_barang);
+
+                Console.WriteLine("NILAI COGS:::::" + cogs);
+
+
+                libraryFungsi.kurangStokBarang(id_produk_pilihan, kuantitas_kg);
+                libraryFungsi.kurangStokBarang_harga(id_produk_pilihan, cogs);
+                libraryFungsi.insertTransaksi(id_produk_pilihan, waktu, stok_keluar, "keluar", cogs, id_customer_pilihan, 0);
+                MessageBox.Show("Berhasil melakukan update barang keluar");
+            }
             
-
-            libraryFungsi.kurangStokBarang(id_produk_pilihan, kuantitas_kg);
-            libraryFungsi.kurangStokBarang_harga(id_produk_pilihan, cogs);
-            libraryFungsi.insertTransaksi(id_produk_pilihan, waktu, stok_keluar, "keluar", cogs, id_customer_pilihan, 0);
-            MessageBox.Show("Berhasil melakukan update barang keluar");
 
         }
 

@@ -170,6 +170,7 @@ namespace sistem_stok_ayam
                 if(pergerakan_barang == "masuk")
                 {
                     Console.WriteLine("MASUK IFFFFF BRG MASUK:::::");
+                    Console.WriteLine("JUMLAH KG BARANG MASUK YANG DI INSERT::::::" + qty_barang);
                     querySQL = "insert into Ms_Pergerakan_Barang(kode_barang, tanggal, qty_barang, pergerakan_barang, uang_masuk)values('" + kode_barang + "', '" + waktu + "', " + qty_barang + ", '" + pergerakan_barang + "', "+ uang_masuk+");";
                 } else
                 {
