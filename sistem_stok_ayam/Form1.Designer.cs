@@ -689,6 +689,9 @@
             // 
             // grid_list_transaksi
             // 
+            this.grid_list_transaksi.AllowUserToAddRows = false;
+            this.grid_list_transaksi.AllowUserToDeleteRows = false;
+            this.grid_list_transaksi.AllowUserToOrderColumns = true;
             this.grid_list_transaksi.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grid_list_transaksi.Location = new System.Drawing.Point(10, 19);
             this.grid_list_transaksi.Name = "grid_list_transaksi";

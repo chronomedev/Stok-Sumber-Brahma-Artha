@@ -17,7 +17,7 @@ namespace sistem_stok_ayam
         public DataTable ambilData_list_Transaksi()
         {
             DataTable tabelData = new DataTable();
-            String querySQL = "select * from Ms_Barang;";
+            String querySQL = "select * from Ms_Pergerakan_Barang;";
             SqlCommand komenSQL = new SqlCommand(querySQL, koneksi);
             koneksi.Open();
             SqlDataReader pembaca = komenSQL.ExecuteReader();
