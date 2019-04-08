@@ -161,7 +161,7 @@ namespace sistem_stok_ayam
 
 
 
-        public Boolean insertTransaksi(String kode_barang, String waktu, double qty_barang, String pergerakan_barang, double cogs, String id_customer_pilihan)
+        public Boolean insertTransaksi(String kode_barang, String waktu, double qty_barang, String pergerakan_barang, double cogs, String id_customer_pilihan, double uang_masuk)
         {
             try
             {
@@ -170,7 +170,7 @@ namespace sistem_stok_ayam
                 if(pergerakan_barang == "masuk")
                 {
                     Console.WriteLine("MASUK IFFFFF BRG MASUK:::::");
-                    querySQL = "insert into Ms_Pergerakan_Barang(kode_barang, tanggal, qty_barang, pergerakan_barang)values('" + kode_barang + "', '" + waktu + "', " + qty_barang + ", '" + pergerakan_barang + "');";
+                    querySQL = "insert into Ms_Pergerakan_Barang(kode_barang, tanggal, qty_barang, pergerakan_barang, uang_masuk)values('" + kode_barang + "', '" + waktu + "', " + qty_barang + ", '" + pergerakan_barang + "', "+ uang_masuk+");";
                 } else
                 {
                     Console.WriteLine("MASUK IFFFFF KELUAR:::::");

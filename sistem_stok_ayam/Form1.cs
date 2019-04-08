@@ -21,9 +21,13 @@ namespace sistem_stok_ayam
 
         /////////UI management Functions//////////////////
 
-
+        //Declare Library class
         kelasDatabase libraryFungsi;
         dataCleansing dataLibrary;
+
+        //Declare menu choice for flag
+        int pilihan_menu_sistem;
+
 
         //Declare sorting variables
         int pilihan_bulan;
@@ -80,10 +84,12 @@ namespace sistem_stok_ayam
             label5.Visible = false;
             field_list_customer.Enabled = false;
             field_list_customer.Visible = false;
+            label_harga_cogs.Visible = false;
+            label_harga_cogs.Enabled = false;
         }
+
         public void uiStokMasuk_en() 
         {
-            //judul.Visible = true;
             judul.Text = "PENAMBAHAN STOK";
             label2.Visible = true;
             bunifuDatepicker1.Visible = true;
@@ -104,6 +110,8 @@ namespace sistem_stok_ayam
             label5.Visible = false;
             field_list_customer.Enabled = false;
             field_list_customer.Visible = false;
+            label_harga_cogs.Enabled = false;
+            label_harga_cogs.Visible = false;
         }
 
         public void uiStokKeluar_en()
@@ -130,6 +138,8 @@ namespace sistem_stok_ayam
             label5.Visible = true;
             field_list_customer.Enabled = true;
             field_list_customer.Visible = true;
+            label_harga_cogs.Visible = true;
+            label_harga_cogs.Enabled = true;
         }
 
 
@@ -255,6 +265,7 @@ namespace sistem_stok_ayam
         private void bunifuFlatButton2_Click(object sender, EventArgs e)
         {
             InterfaceManager(2);
+            pilihan_menu_sistem = 2;
         }
 
         private void bunifuFlatButton1_Click(object sender, EventArgs e)
@@ -266,7 +277,7 @@ namespace sistem_stok_ayam
 
         private void bunifuFlatButton3_Click(object sender, EventArgs e)
         {
-
+            pilihan_menu_sistem = 3;
             InterfaceManager(3);
             ////uiStokMasuk_dis();
             //uiStokKeluar_en();
@@ -335,13 +346,12 @@ namespace sistem_stok_ayam
             double cogs = dataLibrary.calculateCOGS(total_stok, stok_keluar, total_harga_barang);
 
             Console.WriteLine("NILAI COGS:::::" + cogs);
+            
 
             libraryFungsi.kurangStokBarang(id_produk_pilihan, kuantitas_kg);
             libraryFungsi.kurangStokBarang_harga(id_produk_pilihan, cogs);
-            libraryFungsi.insertTransaksi(id_produk_pilihan, waktu, stok_keluar, "keluar", cogs, id_customer_pilihan);
+            libraryFungsi.insertTransaksi(id_produk_pilihan, waktu, stok_keluar, "keluar", cogs, id_customer_pilihan, 0);
             MessageBox.Show("Berhasil melakukan update barang keluar");
-
-
 
         }
 
@@ -360,7 +370,7 @@ namespace sistem_stok_ayam
             libraryFungsi.tambahStokBarang(kode_produk, kuantitas_kg);
             libraryFungsi.tambahStokBarang_harga(kode_produk, harga_masukan);
 
-            if(libraryFungsi.insertTransaksi(kode_produk, waktu, kuantitas_kg, "masuk", 0, null))
+            if(libraryFungsi.insertTransaksi(kode_produk, waktu, kuantitas_kg, "masuk", 0, null, harga_masukan))
             {
                 MessageBox.Show("Berhasil mencatat barang!");
             } else
@@ -387,12 +397,37 @@ namespace sistem_stok_ayam
 
         private void field_kuantitas_barang_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!Char.IsNumber(e.KeyChar) && !Char.IsControl(e.KeyChar))
+            if (!Char.IsNumber(e.KeyChar) && !Char.IsControl(e.KeyChar) && !e.KeyChar.Equals('.')) 
             {
                 MessageBox.Show("Masukan untuk kuantitas barang harus berupa angka!");
                 field_kuantitas_barang.Text = String.Empty;
 
             }
+        }
+
+        private void field_nama_barang_onItemSelected(object sender, EventArgs e)
+        {
+
+
+            if(pilihan_menu_sistem == 3)
+            {
+                String id_pilihan_temp = dataLibrary.getID_clean(field_nama_barang.selectedValue.ToString());
+                Console.WriteLine("PILIHAN ID TIAP PENCET PRODUK::::" + id_pilihan_temp);
+                double total_stok = libraryFungsi.ambilJumlahStok(id_pilihan_temp);
+                double total_harga_barang = libraryFungsi.ambilJumlahStok_harga(id_pilihan_temp);
+                double harga_rata = total_harga_barang / total_stok;
+                String harga_tampil = harga_rata.ToString("#,0.00");
+                if (harga_tampil == "NaN")
+                {
+                    label_harga_cogs.Text = "Harga rata-rata per 1kg produk: Rp 0";
+                }
+                else
+                {
+                    label_harga_cogs.Text = "Harga rata-rata per 1 kg produk: Rp " + harga_rata.ToString("#,0.00");
+                }
+            }
+
+            
         }
     }
 }
