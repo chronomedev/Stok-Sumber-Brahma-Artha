@@ -328,9 +328,9 @@ namespace sistem_stok_ayam
             Console.WriteLine("PILIHAN BUAT BARANG KELUAR:::::" + id_produk_pilihan);
             String id_customer_pilihan = dataLibrary.getID_clean(field_list_customer.selectedValue.ToString());
 
-            int kuantitas_kg = Convert.ToInt32(field_kuantitas_barang.Text);
+            double kuantitas_kg = Convert.ToDouble(field_kuantitas_barang.Text);
             double total_stok = libraryFungsi.ambilJumlahStok(id_produk_pilihan);
-            double stok_keluar = Convert.ToInt64(field_kuantitas_barang.Text);
+            double stok_keluar = Convert.ToDouble(field_kuantitas_barang.Text);
             double total_harga_barang = libraryFungsi.ambilJumlahStok_harga(id_produk_pilihan);
             double cogs = dataLibrary.calculateCOGS(total_stok, stok_keluar, total_harga_barang);
 
