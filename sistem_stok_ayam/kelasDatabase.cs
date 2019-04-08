@@ -169,9 +169,11 @@ namespace sistem_stok_ayam
                 //Console.WriteLine("INSERT BARANG DI BULETIN KEATAS::::::" + qty_barang);
                 if(pergerakan_barang == "masuk")
                 {
+                    Console.WriteLine("MASUK IFFFFF BRG MASUK:::::");
                     querySQL = "insert into Ms_Pergerakan_Barang(kode_barang, tanggal, qty_barang, pergerakan_barang)values('" + kode_barang + "', '" + waktu + "', " + qty_barang + ", '" + pergerakan_barang + "');";
                 } else
                 {
+                    Console.WriteLine("MASUK IFFFFF KELUAR:::::");
                     querySQL = "insert into Ms_Pergerakan_Barang(kode_barang, tanggal, qty_barang, pergerakan_barang, cogs, kode_customer)values('" + kode_barang + "', '" + waktu + "', " + qty_barang + ", '" + pergerakan_barang + "', " + cogs+", '" + id_customer_pilihan+"');";
                 }
                 
