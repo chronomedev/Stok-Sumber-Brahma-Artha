@@ -322,7 +322,7 @@ namespace sistem_stok_ayam
             SortingListBulan dialok_bulan = new SortingListBulan();
             if(dialok_bulan.ShowDialog() == DialogResult.OK)
             {
-
+                label4.Text = dialok_bulan.bulan;
             }
         }
 
@@ -331,7 +331,7 @@ namespace sistem_stok_ayam
             FormSortingHari dialokHari = new FormSortingHari();
             if(dialokHari.ShowDialog() == DialogResult.OK)
             {
-                //label4.Text = dialokHari.passing;
+                label4.Text = dialokHari.passing_tanggal;
             } 
         }
 

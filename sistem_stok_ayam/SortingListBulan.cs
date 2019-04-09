@@ -18,7 +18,7 @@ namespace sistem_stok_ayam
 {
     public partial class SortingListBulan : Form
     {
-
+        public String bulan;
         public void fillBulan()
         {
             list_bulan.AddItem("Januari");
@@ -54,6 +54,7 @@ namespace sistem_stok_ayam
         private void bunifuThinButton21_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.OK;
+            bulan = list_bulan.selectedValue;
 
         }
     }
